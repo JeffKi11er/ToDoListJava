@@ -37,7 +37,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     private int page;
     private JLabel jChrc;
     private Background background;
-    private String path = "F:/task/task.txt";
+    private String path = "C:/task/task.txt";
     int i;
     int x_c;
     int y_c;
