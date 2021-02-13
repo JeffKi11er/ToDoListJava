@@ -468,10 +468,10 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                             int k = i - 1;
                             Item item1 = items.get(i);
                             Item item2 = items.get(k);
-                            String desCurrent = item1.getDescription();
+                            String desCurrent = item1.getHeap();
                             String dateCurrent = item1.getDate();
                             boolean doneCurrent = item1.isDone();
-                            String desConvert = item2.getDescription();
+                            String desConvert = item2.getHeap();
                             String dateConvert = item2.getDate();
                             boolean doneConver = item2.isDone();
                             item1.setHeap(desConvert);
@@ -489,10 +489,10 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                             int k = i + 1;
                             Item item1 = items.get(i);
                             Item item2 = items.get(k);
-                            String desCurrent = item1.getDescription();
+                            String desCurrent = item1.getHeap();
                             String dateCurrent = item1.getDate();
                             boolean doneCurrent = item1.isDone();
-                            String desConvert = item2.getDescription();
+                            String desConvert = item2.getHeap();
                             String dateConvert = item2.getDate();
                             boolean doneConver = item2.isDone();
                             item1.setHeap(desConvert);
