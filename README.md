@@ -7,3 +7,4 @@
 (Hope you enjoy it!)
  
  ![](https://github.com/JeffKi11er/ToDoListJava/blob/main/todolist_java/src/res/Capture.PNG)
+ ![](https://github.com/JeffKi11er/ToDoListJava/blob/main/todolist_java/src/res/todo.PNG)
