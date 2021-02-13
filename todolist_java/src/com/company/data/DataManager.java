@@ -13,7 +13,6 @@ public class DataManager {
     private ArrayList<Item> items;
     private Chosen chosen;
     private Player player;
-    private Eyes eyes;
     private int mode;
     private int page;
     private boolean pageIncrease;
@@ -21,6 +20,7 @@ public class DataManager {
     private Theme colorSet;
     private ButtonPagePrevious buttonPrevious;
     private ButtonPageNext buttonPageNext;
+    private ButtonScheduleItems buttonScheduleItems;
 //    private Background background;
     public void setColorSet(Theme colorSet) {
         this.colorSet = colorSet;
@@ -50,6 +50,7 @@ public class DataManager {
         player = new Player(100, 10);
         buttonPrevious = new ButtonPagePrevious(ToFrame.W * 1 / 2 + 48, ToFrame.H * 2 / 3);
         buttonPageNext = new ButtonPageNext(buttonPrevious.getX() + 50, buttonPrevious.getY());
+        buttonScheduleItems = new ButtonScheduleItems(buttonPrevious.getX()-200,buttonPrevious.getY());
         //eyes = new Eyes(120,ToFrame.H*3/4);
     }
 
@@ -159,6 +160,7 @@ public class DataManager {
         //eyes.draw(g2D);
         buttonPrevious.draw(g2D);
         buttonPageNext.draw(g2D);
+        buttonScheduleItems.draw(g2D);
     }
 
     public void drawTask(Graphics2D g2d) {
@@ -193,7 +195,6 @@ public class DataManager {
 
             }
         }
-//        System.out.println(page);
     }
 
     public void btnNext() {
@@ -211,8 +212,8 @@ public class DataManager {
     }
 
     public void moveChosen(int newOrient) {
-        chosen.move(items);
-        player.move(items);
+        chosen.move(310,145,5,250);
+        player.move(310,145,5,250);
         player.changeOrient(newOrient);
         chosen.changeOrient(newOrient);
 //        buttonPrevious.move();
@@ -226,12 +227,11 @@ public class DataManager {
     public void buttonPreviousMove() {
         buttonPrevious.move();
     }
+    public  void buttonScheduleMove(){
+        buttonScheduleItems.move();
+    }
 
     public void setItemValue(int value, int i) {
         items.get(i).setIntersect(value);
-    }
-
-    public void AI() {
-        eyes.move(items);
     }
 }

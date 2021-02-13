@@ -9,13 +9,15 @@ public class Item {
     private String description;
     private String date;
     private boolean done;
+    private String heap;
     private int x;
     private int y;
     private int intersect;
-    public Item(String description, String date, boolean done) {
-        this.description = description;
+    public Item(String heap, String date, boolean done) {
+        this.heap = heap;
         this.date = date;
         this.done = done;
+        description = heap;
     }
 
     public int getIntersect() {
@@ -72,6 +74,14 @@ public class Item {
 
     @Override
     public String toString() {
-        return getDescription()+"-"+getDate()+"-"+isDone()+"\n";
+        return getHeap()+"-"+getDate()+"-"+isDone()+"\n";
+    }
+
+    public String getHeap() {
+        return heap;
+    }
+
+    public void setHeap(String heap) {
+        this.heap = heap;
     }
 }

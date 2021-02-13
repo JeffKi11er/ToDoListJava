@@ -20,7 +20,7 @@ public class Chosen {
     public void draw(Graphics2D g2d){
         g2d.fillRect(x-10,y, ToFrame.W-40,3);
     }
-    public void move(ArrayList<Item>items){
+    public void move(int y_max,int y_min,int x_min, int x_max){
         int xR = x;
         int yR = y;
         switch (orient){
@@ -31,14 +31,13 @@ public class Chosen {
                 y+=1;
                 break;
         }
-        boolean check = checkLimit(items);
-        if (check == false){
+        if (y>=y_max||y<=y_min){
             x = xR;
             y = yR;
         }
     }
 
-    private boolean checkLimit(ArrayList<Item>items) {
+    private boolean checkLimit(int x_max, int x_min, int y_max, int y_min) {
         return true; 
     }
     public void changeOrient(int newOrient){

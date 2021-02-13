@@ -27,7 +27,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     private JTextField tfInput;
     private JButton btnTheme;
     private JButton btnKeypad;
-//    private ToButton btnRemove;
+    //    private ToButton btnRemove;
     private JLabel jImage;
     private DataManager manager;
     private ArrayList<Item> items = new ArrayList<>();
@@ -37,12 +37,14 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     private int page;
     private JLabel jChrc;
     private Background background;
-    private String path = "C:/task/task.txt";
+    private String path = "C:/task_todolist/task.txt";
     int i;
     int x_c;
     int y_c;
     int ch;
     int test;
+    private int maxCharacter = 25;
+
     public ToPanel() {
         setLayout(null);
         mode = 0;
@@ -58,6 +60,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         requestFocusInWindow();
         setFocusTraversalKeysEnabled(false);
     }
+
     private void memes(int kind) {
         switch (kind) {
             case 1:
@@ -137,15 +140,15 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         //-------------------------------------
         btnKeypad = new JButton();
         btnKeypad.setText("Syntax");
-        btnKeypad.setSize(100,30);
-        btnKeypad.setLocation(ToFrame.W*1/3+20,ToFrame.H*2/3+60);
+        btnKeypad.setSize(100, 30);
+        btnKeypad.setLocation(ToFrame.W * 1 / 3 + 20, ToFrame.H * 2 / 3 + 60);
         add(btnKeypad);
         btnKeypad.addActionListener(this);
         //-------------------------------------
         btnTheme = new JButton();
         btnTheme.setText("Edit sample");
-        btnTheme.setSize(100,30);
-        btnTheme.setLocation(20,ToFrame.H*2/3+60);
+        btnTheme.setSize(100, 30);
+        btnTheme.setLocation(20, ToFrame.H * 2 / 3 + 60);
         add(btnTheme);
         btnTheme.addActionListener(this);
         //-------------------------------------
@@ -168,9 +171,22 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                 } else if (flag[KeyEvent.VK_ENTER]) {
                     String task = tfInput.getText();
                     if (task.isEmpty()) {
-//                        Icon icon = new ImageIcon(getClass().getResource("/res/laugh.gif"));
-//                        JOptionPane.showMessageDialog(getComponentPopupMenu(),"","Cheers!",JOptionPane.INFORMATION_MESSAGE,icon);
                         return;
+                    }
+                    System.out.println(task.length());
+                    int le = task.length();
+                    if (le < 25) {
+                        char[] synchronize = new char[25];
+                        for (int j = 0; j < task.length(); j++) {
+                            synchronize[j] = task.charAt(j);
+                        }
+                        String result = String.valueOf(synchronize);
+                        int count = 1;
+                        while (count <= 25 - le) {
+                            result = result + " ";
+                            ++count;
+                        }
+                        task = result;
                     }
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                     Date date = new Date();
@@ -185,7 +201,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                     }
                     manager.setItems(items, mode, page);
                     int o = items.size();
-                    if (o%4==0){
+                    if (o % 4 == 0) {
                         memes(1);
                     }
                 } else if (flag[KeyEvent.VK_SPACE]) {
@@ -195,9 +211,9 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                 } else if (flag[KeyEvent.VK_NUMPAD1]) {
                     for (int i = page * 8; i < items.size(); i++) {
                         if (i < 8 * (page + 1)) {
-                            if (checkIntersects(items.get(i), manager.getChosen())&&!items.get(i).isDone()) {
+                            if (checkIntersects(items.get(i), manager.getChosen()) && !items.get(i).isDone()) {
                                 items.get(i).setDone(true);
-                            }else if (checkIntersects(items.get(i), manager.getChosen())&&items.get(i).isDone()){
+                            } else if (checkIntersects(items.get(i), manager.getChosen()) && items.get(i).isDone()) {
                                 items.get(i).setDone(false);
                             }
                         }
@@ -238,6 +254,8 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
 //                    if (checkDoneTaskMe()){
 //                        memes(3);
 //                    }
+                } else if (flag[KeyEvent.VK_NUMPAD0]) {
+                    manager.buttonScheduleMove();
                 }
             }
 
@@ -260,20 +278,22 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
 //        jChrc.setFont(new Font(null,Font.BOLD,25));
 //        add(jChrc);
     }
-    private boolean checkDoneTaskMe(){
+
+    private boolean checkDoneTaskMe() {
         int task_Done;
         task_Done = 0;
         int siz = items.size();
-        for (int j = 8*page; j < items.size(); j++) {
-            if (items.get(j).isDone()&& siz<8*(page+1)){
+        for (int j = 8 * page; j < items.size(); j++) {
+            if (items.get(j).isDone() && siz < 8 * (page + 1)) {
                 ++task_Done;
             }
         }
-        if (task_Done%2==0){
+        if (task_Done % 2 == 0) {
             return true;
         }
         return false;
     }
+
     private void checkFile() {
         File file = new File(path);
         if (!file.exists()) {
@@ -323,13 +343,11 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                 count = fileInputStream.read(b);
             }
             String t[] = builder.toString().split("\n");
-//            System.out.println(t.length);
             for (int i = 0; i < t.length; i++) {
                 String each[] = t[i].split("-");
                 if (each.length > 1) {
                     items.add(new Item(each[0], each[1], Boolean.valueOf(each[2])));
                 }
-//                System.out.println(t[i]);
             }
             manager.setItems(items, mode, page);
             fileInputStream.close();
@@ -341,7 +359,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if (actionEvent.getSource().equals(btnTheme)){
+        if (actionEvent.getSource().equals(btnTheme)) {
             String theme[] = {"Normal", "High Light", "Computer", "Dark"};
             JComboBox comboBox = new JComboBox(theme);
             int input;
@@ -359,11 +377,11 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                 }
             }
             manager.setItems(items, mode, page);
-        }else if(actionEvent.getSource().equals(btnKeypad)){
-            JOptionPane.showMessageDialog(getComponentPopupMenu(),"- Use UP/DOWN to move\n"+
-                    "- Use LEFT/RIGHT to arrange\n"+
-                    "- Use NUMPAD1 to check Done/Not Done\n"+
-                    "- Use NUMPAD3/NUMPAD9 to move previous/next pages","Guide",JOptionPane.INFORMATION_MESSAGE);
+        } else if (actionEvent.getSource().equals(btnKeypad)) {
+            JOptionPane.showMessageDialog(getComponentPopupMenu(), "- Use UP/DOWN to move\n" +
+                    "- Use LEFT/RIGHT to arrange\n" +
+                    "- Use NUMPAD1 to check Done/Not Done\n" +
+                    "- Use NUMPAD3/NUMPAD9 to move previous/next pages", "Guide", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -426,93 +444,84 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     @Override
     public void run() {
         while (true) {
-            for (int i = 0; i < items.size(); i++) {
+            try {
+                int delay = 0;
+                for (int i = 0; i < items.size(); i++) {
 //            g2d.setColor(Color.ORANGE);
 //            g2d.fillRect(items.get(i).getX()-10,items.get(i).getY()-15,ToFrame.generalFieldWid,ToFrame.getGeneralFieldHei);
 //                Rectangle rectangle = new Rectangle(items.get(i).getX()-10,items.get(i).getY(),ToFrame.generalFieldWid,ToFrame.getGeneralFieldHei*1/3);
 //                Rectangle check = rectangle;
-                if (checkIntersects(items.get(i), manager.getChosen())) {
-                    items.get(i).setIntersect(0);
-                } else {
-                    items.get(i).setIntersect(1);
-                }
-            }
-            if (flag[KeyEvent.VK_UP]) {
-                manager.moveChosen(Chosen.UP);
-            } else if (flag[KeyEvent.VK_DOWN]) {
-                manager.moveChosen(Chosen.DOWN);
-            } else if (flag[KeyEvent.VK_LEFT]) {
-                manager.moveChosen(Player.LEFT);
-                for (int i = 0; i < items.size(); i++) {
-                    if (checkIntersects(items.get(i), manager.getChosen()) && i > 0) {
-                        int k = i - 1;
-                        Item item1 = items.get(i);
-                        Item item2 = items.get(k);
-                        String desCurrent = item1.getDescription();
-                        String dateCurrent = item1.getDate();
-                        boolean doneCurrent = item1.isDone();
-                        String desConvert = item2.getDescription();
-                        String dateConvert = item2.getDate();
-                        boolean doneConver = item2.isDone();
-                        item1.setDescription(desConvert);
-                        item1.setDate(dateConvert);
-                        item1.setDone(doneConver);
-                        item2.setDescription(desCurrent);
-                        item2.setDate(dateCurrent);
-                        item2.setDone(doneCurrent);
+                    if (checkIntersects(items.get(i), manager.getChosen())) {
+                        items.get(i).setIntersect(0);
+                    } else {
+                        items.get(i).setIntersect(1);
                     }
                 }
-            } else if (flag[KeyEvent.VK_RIGHT]) {
-                manager.moveChosen(Player.RIGHT);
-                for (int i = 0; i < items.size(); i++) {
-                    if (checkIntersects(items.get(i), manager.getChosen()) && i < items.size() - 1) {
-                        int k = i + 1;
-                        Item item1 = items.get(i);
-                        Item item2 = items.get(k);
-                        String desCurrent = item1.getDescription();
-                        String dateCurrent = item1.getDate();
-                        boolean doneCurrent = item1.isDone();
-                        String desConvert = item2.getDescription();
-                        String dateConvert = item2.getDate();
-                        boolean doneConver = item2.isDone();
-                        item1.setDescription(desConvert);
-                        item1.setDate(dateConvert);
-                        item1.setDone(doneConver);
-                        item2.setDescription(desCurrent);
-                        item2.setDate(dateCurrent);
-                        item2.setDone(doneCurrent);
+                if (flag[KeyEvent.VK_UP]) {
+                    manager.moveChosen(Chosen.UP);
+                } else if (flag[KeyEvent.VK_DOWN]) {
+                    manager.moveChosen(Chosen.DOWN);
+                } else if (flag[KeyEvent.VK_LEFT]) {
+                    manager.moveChosen(Player.LEFT);
+                    for (int i = 0; i < items.size(); i++) {
+                        if (checkIntersects(items.get(i), manager.getChosen()) && i > 0) {
+                            int k = i - 1;
+                            Item item1 = items.get(i);
+                            Item item2 = items.get(k);
+                            String desCurrent = item1.getDescription();
+                            String dateCurrent = item1.getDate();
+                            boolean doneCurrent = item1.isDone();
+                            String desConvert = item2.getDescription();
+                            String dateConvert = item2.getDate();
+                            boolean doneConver = item2.isDone();
+                            item1.setHeap(desConvert);
+                            item1.setDate(dateConvert);
+                            item1.setDone(doneConver);
+                            item2.setHeap(desCurrent);
+                            item2.setDate(dateCurrent);
+                            item2.setDone(doneCurrent);
+                        }
+                    }
+                } else if (flag[KeyEvent.VK_RIGHT]) {
+                    manager.moveChosen(Player.RIGHT);
+                    for (int i = 0; i < items.size(); i++) {
+                        if (checkIntersects(items.get(i), manager.getChosen()) && i < items.size() - 1) {
+                            int k = i + 1;
+                            Item item1 = items.get(i);
+                            Item item2 = items.get(k);
+                            String desCurrent = item1.getDescription();
+                            String dateCurrent = item1.getDate();
+                            boolean doneCurrent = item1.isDone();
+                            String desConvert = item2.getDescription();
+                            String dateConvert = item2.getDate();
+                            boolean doneConver = item2.isDone();
+                            item1.setHeap(desConvert);
+                            item1.setDate(dateConvert);
+                            item1.setDone(doneConver);
+                            item2.setHeap(desCurrent);
+                            item2.setDate(dateCurrent);
+                            item2.setDone(doneCurrent);
+                        }
                     }
                 }
-            }
-//            else if (flag[KeyEvent.VK_NUMPAD0]){
-//                String theme[]={"Normal","High Light","Computer","Dark"};
-//                JComboBox comboBox = new JComboBox(theme);
-//                int input;
-//                input = JOptionPane.showConfirmDialog(getComponentPopupMenu(),comboBox,"Select theme",JOptionPane.DEFAULT_OPTION);
-//                if (input==JOptionPane.OK_OPTION){
-//                    String theme_c = (String)comboBox.getSelectedItem();
-//                    if (theme_c.equals("Normal")){
-//                        mode = 1;
-//                    }else if (theme_c.equals("High Light")){
-//                        mode = 2;
-//                    }else if (theme_c.equals("Computer")){
-//                        mode = 3;
-//                    }else {
-//                        mode = 4;
-//                    }
-//                }
-//                manager.setItems(items,mode,page);
-//            }
-//            System.out.println(manager.getDoneItems());
-            repaint();
-            try {
+                for (int j = 0; j < items.size(); j++) {
+                    if (checkIntersects(items.get(j), manager.getChosen())) {
+                        String newStr = items.get(j).getDescription();
+                        newStr = newStr.charAt(newStr.length() - 1) + newStr.substring(0, newStr.length() - 1);
+                        items.get(j).setDescription(newStr);
+                        Thread.sleep(24);
+                    }else {
+                        String locatedMemory = items.get(j).getHeap();
+                        items.get(j).setDescription(locatedMemory);
+                    }
+                }
+                repaint();
                 Thread.sleep(7);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
-
     @Override
     public Color setColorBorder() {
         Color border;
@@ -583,7 +592,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
             case 2:
                 background = Color.BLUE;
                 break;
-            case 3 :
+            case 3:
                 background = Color.LIGHT_GRAY;
                 break;
             default:

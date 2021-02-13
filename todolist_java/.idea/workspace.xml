@@ -6,12 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf829b49-76c4-4bad-8dda-9044b3315fd4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/todolistjavaremake.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/todolist_java_jar/todolist_java.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/todolist_java_jar/todolist_java.jar" afterDir="false" />
-    </list>
+    <list default="true" id="cf829b49-76c4-4bad-8dda-9044b3315fd4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,18 +20,13 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
   <component name="ProjectId" id="1mmDGucmorVMKWQWfClr2IDVFpg" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../todolistjavaremake/todolist_java" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../landt1810E/Java/Buoi9/out/production/Buoi9/com/t3h/gui/MyFrame.class" />
+    <property name="two.files.diff.last.used.file" value="D:/landt1810E/Java/Buoi10/out/production/Buoi10/com/t3h/model/Entity.class" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -90,16 +80,5 @@
       <updated>1610089780254</updated>
     </task>
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

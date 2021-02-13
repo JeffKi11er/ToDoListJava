@@ -1,5 +1,7 @@
 package com.company.data;
 
+import com.company.ui.ToFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -48,7 +50,8 @@ public class Player extends Chosen {
         g2d.drawImage(img, x, y, null);
     }
     @Override
-    public void move(ArrayList<Item> items) {
+    public void move(int y_max,int y_min,int x_min, int x_max) {
+        int xR = x;
         count++;
         if (count >= 4){
             index++;
@@ -70,6 +73,9 @@ public class Player extends Chosen {
             case RIGHT:
                 y += 0;
                 break;
+        }
+        if (x>= x_max||x<=x_min){
+            x = xR;
         }
     }
 }
