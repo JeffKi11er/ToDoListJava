@@ -6,25 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf829b49-76c4-4bad-8dda-9044b3315fd4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/todolist_java_jar/todolist_java.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/todolist_java_jar/todolist_java.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/todolist_java_jar/todolist_java1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/Chosen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/Chosen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/DataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/DataManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/todolist_java/com/company/data/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/todolist_java/com/company/ui/ToPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/todolist_java/com/company/ui/ToPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/todolist_java/com/company/ui/ToPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/todolist_java/com/company/ui/ToPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/todolist_java/res/Capture.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/todolist_java/res/Capture.PNG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/data/Chosen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/data/Chosen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/data/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/data/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/data/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/data/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/data/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/data/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/ui/ToPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/ui/ToPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/res/Capture.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/Capture.PNG" afterDir="false" />
-    </list>
+    <list default="true" id="cf829b49-76c4-4bad-8dda-9044b3315fd4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,21 +22,20 @@
   </component>
   <component name="ProjectId" id="1mmDGucmorVMKWQWfClr2IDVFpg" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/res" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../todolistjavaremake/todolist_java" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="two.files.diff.last.used.file" value="D:/landt1810E/Java/Buoi10/out/production/Buoi10/com/t3h/model/Entity.class" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\javaTransfer\todolistjavaremake\todolist_java\src\res" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\javaTransfer\todolist_java\src\res" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.company.data" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\javaTransfer\todolist_java\src\res" />
     </key>
   </component>
@@ -99,16 +80,5 @@
       <updated>1610089780254</updated>
     </task>
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

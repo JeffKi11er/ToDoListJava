@@ -188,8 +188,9 @@ public class DataManager {
                     int y = 25 * k + 150;
                     item.setX(x);
                     item.setY(y);
-                    g2d.drawString(item.getDescription(), x, y);
-                    g2d.drawString(item.getDate(), ToFrame.W * 1 / 2 + 10, y);
+                    String str = item.getDescription().substring(0, 25);
+                    g2d.drawString(str, x, y);
+                    g2d.drawString(item.getDate(), ToFrame.W * 1 / 2 + 55, y);
                     ++k;
                 }
 

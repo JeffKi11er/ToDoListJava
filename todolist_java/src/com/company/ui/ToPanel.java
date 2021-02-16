@@ -188,7 +188,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                         }
                         task = result;
                     }
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     Date date = new Date();
                     Item item = new Item(task, simpleDateFormat.format(date), false);
                     item.setX(x_c);
@@ -508,6 +508,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                     if (checkIntersects(items.get(j), manager.getChosen())) {
                         String newStr = items.get(j).getDescription();
                         newStr = newStr.charAt(newStr.length() - 1) + newStr.substring(0, newStr.length() - 1);
+//                        String  str = newStr.substring(0,25);
                         items.get(j).setDescription(newStr);
                         Thread.sleep(24);
                     }else {
