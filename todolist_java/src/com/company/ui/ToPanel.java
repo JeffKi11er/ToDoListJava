@@ -1,6 +1,7 @@
 package com.company.ui;
 
 import com.company.data.*;
+import com.company.datePicker.DatePickerFrame;
 import com.sun.jdi.event.ExceptionEvent;
 
 import javax.imageio.ImageIO;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.Visibility;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -27,7 +29,8 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     private JTextField tfInput;
     private JButton btnTheme;
     private JButton btnKeypad;
-    //    private ToButton btnRemove;
+    private String datePicked;
+    private String taskName;
     private JLabel jImage;
     private DataManager manager;
     private ArrayList<Item> items = new ArrayList<>();
@@ -36,8 +39,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     private int mode;
     private int page;
     private JLabel jChrc;
-    private Background background;
-    private String path = "C:/task_todolist/task.txt";
+    private String path = "F:/task/task.txt";
     int i;
     int x_c;
     int y_c;
@@ -59,6 +61,22 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         setFocusable(true);
         requestFocusInWindow();
         setFocusTraversalKeysEnabled(false);
+    }
+
+    public String getDatePicked() {
+        return datePicked;
+    }
+
+    public void setDatePicked(String datePicked) {
+        this.datePicked = datePicked;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
     private void memes(int kind) {
@@ -136,8 +154,6 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         manager = new DataManager(items, 0, page);
         manager.setColorSet(this);
         //-------------------------------------
-        background = new Background();
-        //-------------------------------------
         btnKeypad = new JButton();
         btnKeypad.setText("Syntax");
         btnKeypad.setSize(100, 30);
@@ -153,9 +169,9 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         btnTheme.addActionListener(this);
         //-------------------------------------
         tfInput = new JTextField();
-        tfInput.setSize(ToFrame.W - 40, 25);
+        tfInput.setSize(ToFrame.W - 117, 25);
         int y = 10 + 80 + 10;
-        tfInput.setLocation(10, y);
+        tfInput.setLocation(85, y);
         tfInput.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent keyEvent) {
@@ -188,21 +204,25 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                         }
                         task = result;
                     }
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = new Date();
-                    Item item = new Item(task, simpleDateFormat.format(date), false);
-                    item.setX(x_c);
-                    item.setY(y_c);
-                    items.add(item);
-                    tfInput.setText("");
-                    if (items.size() > 8 * ch) {
-                        ++page;
-                        ++ch;
-                    }
-                    manager.setItems(items, mode, page);
-                    int o = items.size();
-                    if (o % 4 == 0) {
-                        memes(1);
+                    if (datePicked==null){
+                        pickDate(task);
+                    }else {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date = new Date();
+                        Item item = new Item(taskName, simpleDateFormat.format(date), false);
+                        item.setX(x_c);
+                        item.setY(y_c);
+                        items.add(item);
+                        tfInput.setText("");
+                        if (items.size() > 8 * ch) {
+                            ++page;
+                            ++ch;
+                        }
+                        manager.setItems(items, mode, page);
+                        int o = items.size();
+                        if (o % 4 == 0) {
+                            memes(1);
+                        }
                     }
                 } else if (flag[KeyEvent.VK_SPACE]) {
                     for (Item item : items) {
@@ -219,43 +239,20 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                         }
                     }
                     manager.setItems(items, mode, page);
-//                    if (manager.getDoneItems()%3==0){
-//                        Random rd = new Random();
-//                        int roll = 1+rd.nextInt(2);
-//                        if (roll==1){
-//                            memes(2);
-//                        }else {
-//                            memes(3);
-//                        }
-//                    }
                 } else if (flag[KeyEvent.VK_NUMPAD9]) {
                     manager.buttonNextMove();
                     i = page + 1;
                     manager.setPage(i);
-//                getP(page+1);
-////                manager.setPageIncrease(true);
-//                manager.btnNext();
                     page = i;
                     i = 0;
-//                    if (checkDoneTaskMe()){
-//                        memes(3);
-//                    }
                 } else if (flag[KeyEvent.VK_NUMPAD3]) {
                     manager.buttonPreviousMove();
                     if (manager.getPage() > 0) {
                         i = manager.getPage() - 1;
                         manager.setPage(i);
-//                    getP(page-1);
-////                    manager.setPageDecrease(true);
-//                    manager.btnPre();
                     }
                     page = i;
                     i = 0;
-//                    if (checkDoneTaskMe()){
-//                        memes(3);
-//                    }
-                } else if (flag[KeyEvent.VK_NUMPAD0]) {
-                    manager.buttonScheduleMove();
                 }
             }
 
@@ -270,15 +267,12 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         y_c = label + 20;
         manager.initChosen(x_c, y_c - 10);
         //-------------------------------------
-//        ImageIcon background = new ImageIcon("D:/javaTransfer/todolist_java/src/res/clocks.jpg");
-//        jChrc = new JLabel("",background,JLabel.CENTER);
-//        jChrc.setLocation(0,0);
-//        jChrc.setSize(ToFrame.W,ToFrame.H);
-//        jChrc.setForeground(Color.RED);
-//        jChrc.setFont(new Font(null,Font.BOLD,25));
-//        add(jChrc);
     }
-
+    private void pickDate(String taskName){
+        DatePickerFrame datePickerFrame = new DatePickerFrame();
+        datePickerFrame.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
+    }
     private boolean checkDoneTaskMe() {
         int task_Done;
         task_Done = 0;
@@ -360,20 +354,16 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(btnTheme)) {
-            String theme[] = {"Normal", "High Light", "Computer", "Dark"};
+            String theme[] = {"Bright", "Dark"};
             JComboBox comboBox = new JComboBox(theme);
             int input;
             input = JOptionPane.showConfirmDialog(getComponentPopupMenu(), comboBox, "Select theme", JOptionPane.DEFAULT_OPTION);
             if (input == JOptionPane.OK_OPTION) {
                 String theme_c = (String) comboBox.getSelectedItem();
-                if (theme_c.equals("Normal")) {
+                if (theme_c.equals("Bright")) {
                     mode = 1;
-                } else if (theme_c.equals("High Light")) {
+                } else{
                     mode = 2;
-                } else if (theme_c.equals("Computer")) {
-                    mode = 3;
-                } else {
-                    mode = 4;
                 }
             }
             manager.setItems(items, mode, page);
@@ -404,32 +394,10 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g2d);
-//        int y = 0 ;
-//        for (int i = 0; i < items.size(); i++) {
-//            g2d.setColor(Color.BLACK);
-//            g2d.setFont(new Font(null,Font.BOLD,15));
-//            Item item = items.get(i);
-//            g2d.drawString(item.getDescription()+" : "+item.getDate(),item.getX(),item.getY()+y);
-//            y+=30;
-//        }
-        background.draw(g2d);
-        g2d.setColor(setColorBorder());
-        g2d.fillRect(10, tfInput.getHeight() + tfInput.getY() + 5, ToFrame.W - 40, ToFrame.H * 2 / 5);
-        g2d.setColor(setColorForm());
-        g2d.fillRect(10 + 1, tfInput.getHeight() + tfInput.getY() + 5 + 1, ToFrame.W - 40 - 2, ToFrame.H * 2 / 5 - 2);
         manager.drawChosen(g2d);
-//        for (int i = 0;i< items.size();i++){
-//            g2d.setColor(Color.GREEN);
-//            g2d.fillRect(items.get(i).getX()-10,items.get(i).getY()-15,ToFrame.generalFieldWid,ToFrame.getGeneralFieldHei);
-////            Rectangle rectangle = new Rectangle(items.get(i).getX()-10,items.get(i).getY()-15,ToFrame.generalFieldWid,ToFrame.getGeneralFieldHei);
-////            Rectangle check = rectangle;
-////            if (check.intersects(new Rectangle(manager.getChosen().getX(),manager.getChosen().getY(),ToFrame.generalFieldWid,ToFrame.getGeneralFieldHei))){
-////                items.get(i).setIntersect(0);
-////            }
-//        }
+        g2d.drawImage(imgBackground(),0,0,null);
+        manager.drawEntity(g2d);
         manager.drawTask(g2d);
-//        buttonPrevious.draw(g2d);
-//        buttonPageNext.draw(g2d);
     }
 
     private boolean checkIntersects(Item item, Chosen chosen) {
@@ -447,10 +415,6 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
             try {
                 int delay = 0;
                 for (int i = 0; i < items.size(); i++) {
-//            g2d.setColor(Color.ORANGE);
-//            g2d.fillRect(items.get(i).getX()-10,items.get(i).getY()-15,ToFrame.generalFieldWid,ToFrame.getGeneralFieldHei);
-//                Rectangle rectangle = new Rectangle(items.get(i).getX()-10,items.get(i).getY(),ToFrame.generalFieldWid,ToFrame.getGeneralFieldHei*1/3);
-//                Rectangle check = rectangle;
                     if (checkIntersects(items.get(i), manager.getChosen())) {
                         items.get(i).setIntersect(0);
                     } else {
@@ -508,7 +472,6 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                     if (checkIntersects(items.get(j), manager.getChosen())) {
                         String newStr = items.get(j).getDescription();
                         newStr = newStr.charAt(newStr.length() - 1) + newStr.substring(0, newStr.length() - 1);
-//                        String  str = newStr.substring(0,25);
                         items.get(j).setDescription(newStr);
                         Thread.sleep(24);
                     }else {
@@ -527,15 +490,6 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
     public Color setColorBorder() {
         Color border;
         switch (mode) {
-            case 1:
-                border = Color.RED;
-                break;
-            case 2:
-                border = Color.BLACK;
-                break;
-            case 3:
-                border = Color.WHITE;
-                break;
             default:
                 border = Color.GRAY;
                 break;
@@ -548,59 +502,26 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         Color font;
         switch (mode) {
             case 1:
-                font = Color.WHITE;
-                break;
-            case 2:
-                font = Color.BLUE;
-                break;
-            case 3:
-                font = Color.yellow;
+                font = Color.BLACK;
                 break;
             default:
-                font = Color.BLACK;
+                font = Color.WHITE;
                 break;
         }
         return font;
     }
 
     @Override
-    public Color setColorForm() {
-        Color form;
-        switch (mode) {
+    public Image imgBackground() {
+        Image image;
+        switch (mode){
             case 1:
-                form = Color.GRAY;
-                break;
-            case 2:
-                form = Color.ORANGE;
-                break;
-            case 3:
-                form = Color.BLUE;
+                image = new ImageIcon(getClass().getResource("/res/white_6.jpg")).getImage();
                 break;
             default:
-                form = Color.WHITE;
-                break;
+                image = new ImageIcon(getClass().getResource("/res/black_5.jpg")).getImage();
         }
-        return form;
-    }
-
-    @Override
-    public Color setColorBackground() {
-        Color background;
-        switch (mode) {
-            case 1:
-                background = Color.LIGHT_GRAY;
-                break;
-            case 2:
-                background = Color.BLUE;
-                break;
-            case 3:
-                background = Color.LIGHT_GRAY;
-                break;
-            default:
-                background = null;
-                break;
-        }
-        return background;
+        return image;
     }
 
     @Override
@@ -608,16 +529,10 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
         Color selected;
         switch (mode) {
             case 1:
-                selected = Color.GREEN;
-                break;
-            case 2:
-                selected = Color.WHITE;
-                break;
-            case 3:
-                selected = Color.GREEN;
+                selected = Color.BLUE;
                 break;
             default:
-                selected = Color.BLUE;
+                selected = Color.PINK;
                 break;
         }
         return selected;

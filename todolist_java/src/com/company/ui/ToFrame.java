@@ -27,25 +27,8 @@ public class ToFrame extends javax.swing.JFrame implements WindowListener {
     }
 
     private void init() {
-//        BufferedImage img = null;
-//        try {
-//            img = ImageIO.read(new File("D:/javaTransfer/todolist_java/src/res/clocks.jpg"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Set the frames content pane to use a JLabel
-//        // whose icon property has been set to use the image
-//        // we just loaded
-//        setContentPane(new JLabel(new ImageIcon(img)));
-//
-//        // Supply a layout manager for the body of the content
-//        setLayout(new GridBagLayout());
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.gridwidth = GridBagConstraints.REMAINDER;
         toPanel = new ToPanel();
         add(toPanel);
-//        pack();
     }
 
     @Override

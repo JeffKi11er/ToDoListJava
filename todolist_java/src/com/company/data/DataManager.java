@@ -5,7 +5,14 @@ import com.company.ui.ToFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.TextAttribute;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
@@ -20,8 +27,8 @@ public class DataManager {
     private Theme colorSet;
     private ButtonPagePrevious buttonPrevious;
     private ButtonPageNext buttonPageNext;
-    private ButtonScheduleItems buttonScheduleItems;
-//    private Background background;
+
+    //    private Background background;
     public void setColorSet(Theme colorSet) {
         this.colorSet = colorSet;
     }
@@ -50,9 +57,9 @@ public class DataManager {
         player = new Player(100, 10);
         buttonPrevious = new ButtonPagePrevious(ToFrame.W * 1 / 2 + 48, ToFrame.H * 2 / 3);
         buttonPageNext = new ButtonPageNext(buttonPrevious.getX() + 50, buttonPrevious.getY());
-        buttonScheduleItems = new ButtonScheduleItems(buttonPrevious.getX()-200,buttonPrevious.getY());
         //eyes = new Eyes(120,ToFrame.H*3/4);
     }
+
 
     public Chosen getChosen() {
         return chosen;
@@ -69,6 +76,7 @@ public class DataManager {
         pageIncrease = false;
         pageDecrease = false;
     }
+
     private void memes(int kind) {
         switch (kind) {
             case 1:
@@ -135,6 +143,7 @@ public class DataManager {
                 break;
         }
     }
+
     public void setItems(ArrayList<Item> items, int mode, int page) {
         this.items = items;
         for (int i = 0; i < items.size(); i++) {
@@ -143,32 +152,36 @@ public class DataManager {
         this.mode = mode;
         this.page = page;
     }
-    public int getDoneItems(){
+
+    public int getDoneItems() {
         int k;
         k = 0;
         for (int j = 0; j < items.size(); j++) {
-            if (items.get(j).isDone()){
+            if (items.get(j).isDone()) {
                 ++k;
             }
         }
         return k;
     }
-    public void drawChosen(Graphics2D g2D) {
-//        background.draw(g2D);
-        chosen.draw(g2D);
+
+    public void drawEntity(Graphics2D g2D) {
         player.draw(g2D);
         //eyes.draw(g2D);
         buttonPrevious.draw(g2D);
         buttonPageNext.draw(g2D);
-        buttonScheduleItems.draw(g2D);
+
+    }
+
+    public void drawChosen(Graphics2D g2D) {
+        chosen.draw(g2D);
     }
 
     public void drawTask(Graphics2D g2d) {
-        if (items.size()>0){
+        if (items.size() > 0) {
             int k;
             k = 0;
-            for (int i = 8*page; i < items.size(); i++) {
-                if (i<8*(page+1)){
+            for (int i = 8 * page; i < items.size(); i++) {
+                if (i < 8 * (page + 1)) {
                     Item item = items.get(i);
                     if (item.getIntersect() > 0 && colorSet != null) {
                         g2d.setColor(colorSet.setColorFont());
@@ -176,9 +189,9 @@ public class DataManager {
                         g2d.setColor(colorSet.setColorSelected());
                     }
                     if (!item.isDone()) {
-                        g2d.setFont(new Font(null, Font.PLAIN, 15));
+                        g2d.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
                     } else {
-                        Font font = new Font("helvetica", Font.PLAIN, 15);
+                        Font font = new Font("Comic Sans MS", Font.PLAIN, 15);
                         Map attributes = font.getAttributes();
                         attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
                         Font newFont = new Font(attributes);
@@ -190,7 +203,25 @@ public class DataManager {
                     item.setY(y);
                     String str = item.getDescription().substring(0, 25);
                     g2d.drawString(str, x, y);
-                    g2d.drawString(item.getDate(), ToFrame.W * 1 / 2 + 55, y);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = new Date();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate now = LocalDate.parse(simpleDateFormat.format(date), formatter);
+                    try {
+                        Date itemDate = new SimpleDateFormat("dd/MM/yyyy").parse(item.getDate());
+                        LocalDate dateConvert = LocalDate.parse(simpleDateFormat.format(itemDate), formatter);
+                        long duration = ChronoUnit.DAYS.between(now, dateConvert) + 1;
+                        if (duration <= 3) {
+                            g2d.setColor(Color.RED);
+                        } else if (duration >= 10) {
+                            g2d.setColor(Color.GREEN);
+                        } else if (duration == 5) {
+                            g2d.setColor(Color.YELLOW);
+                        }
+                        g2d.drawString(duration + " days left", ToFrame.W * 1 / 2 + 55, y);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     ++k;
                 }
 
@@ -213,8 +244,8 @@ public class DataManager {
     }
 
     public void moveChosen(int newOrient) {
-        chosen.move(310,145,5,250);
-        player.move(310,145,5,250);
+        chosen.move(310, 145, 5, 250);
+        player.move(310, 145, 5, 250);
         player.changeOrient(newOrient);
         chosen.changeOrient(newOrient);
 //        buttonPrevious.move();
@@ -228,9 +259,8 @@ public class DataManager {
     public void buttonPreviousMove() {
         buttonPrevious.move();
     }
-    public  void buttonScheduleMove(){
-        buttonScheduleItems.move();
-    }
+
+
 
     public void setItemValue(int value, int i) {
         items.get(i).setIntersect(value);

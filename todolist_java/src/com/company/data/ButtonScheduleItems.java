@@ -3,11 +3,14 @@ package com.company.data;
 import javax.swing.*;
 import java.awt.*;
 
-public class ButtonScheduleItems extends Chosen{
+public class ButtonScheduleItems extends JButton{
     private int index = 0;
     private int count = 0;
+    private int x;
+    private int y;
     public ButtonScheduleItems(int x, int y) {
-        super(x, y);
+        this.x = x;
+        this.y = y;
     }
     private Image[]img = {
             new ImageIcon(getClass().getResource("/res/button_schedule.png")).getImage(),
@@ -15,7 +18,6 @@ public class ButtonScheduleItems extends Chosen{
     };
     private Image image;
 
-    @Override
     public void draw(Graphics2D g2d) {
         image = img[index];
         g2d.drawImage(image,x,y,null);
