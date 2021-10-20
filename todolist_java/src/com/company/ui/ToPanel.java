@@ -188,7 +188,7 @@ public class ToPanel extends javax.swing.JPanel implements KeyListener, Runnable
                         }
                         task = result;
                     }
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd HH:mm:ss");
                     Date date = new Date();
                     Item item = new Item(task, simpleDateFormat.format(date), false);
                     item.setX(x_c);
